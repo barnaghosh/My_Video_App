@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title_block %} Blogs {% endblock  %} </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- <link rel="stylesheet" href="{% static 'css/first.css' %}" type="text/css"> -->
+  {% block css_block %}
+    
+{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="padding-right: 100px;">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-link active">
+                <a class="nav-link " href="{% url 'main' %}">Home</a>
+            </li>
+            <form class="form-inline" method="GET" >
+                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
+                <button class="btn btn-success" type="submit">Search</button>
+            </form>
+            {% if  user.is_authenticated %}
+                &nbsp;&nbsp;
+                <div class="nav-item dropdown ">
+                    {% if user.user_profile.profile_pic %}
+                    <a class=" btn btn-secondary dropdown-toggle" href="#" data-toggle="dropdown" > 
+                        <img src="/media/{{user.user_profile.profile_pic}}" alt="" width="40px" height="40px" class="rounded-circle">
+                        </a>
+                    {% else %}
+                    <a class=" btn btn-secondary dropdown-toggle" href="#" data-toggle="dropdown" > 
+                        <img src="/media/profile_pics/avatar-male.jpg" alt="" width="40px" height="40px" class="rounded-circle">
+                    </a>
+                    {% endif %}
+                       
+                        
+                        
+                    <div class="dropdown-menu" >
+                        <a class="dropdown-item" href="{% url 'app_post:upload' %}">Upload Video</a>
+                        <a class="dropdown-item" href="{% url 'app_post:user_video' %}">Your Video</a>
+                        <a class="dropdown-item" href="{% url 'app_login:profile' %}">Profile</a>
+                        <a class="dropdown-item" href="{% url 'app_login:logout' %}">Logout</a>
+                    </div>
+                    
+                   
+                </div>
+            {% else %}
+                <li class="nav-link">
+                    <a class="nav-link" href="{% url 'app_login:signup' %}">SignUp</a>
+                </li>
+                <li class="nav-link">
+                    <a class="nav-link" href="{% url 'app_login:login' %}">Login</a>
+                </li> 
+            {% endif %}
+            
+         </ul>
+    </nav>
+    <div class="container" style="padding-top: 10px; " >
+        {% block body_block %}
+        {% endblock %}
+    </div>
+</body>
+</html>

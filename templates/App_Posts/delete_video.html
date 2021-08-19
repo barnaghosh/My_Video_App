@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %}
+{{blog.blog_title}}
+{% endblock %}
+{% block body_block %}
+<h3>Are sure to delete this video?? </h3>
+{% if post.video %}
+    <video width="600" height="400" controls>
+      <source src="/media/{{post.video}}" type="video/mp4">
+      <source src="/media/{{post.video}}" type="video/ogg">
+      <source src="/media/{{post.video}}" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+    {% else %}
+    <iframe src="{{post.website}}" width="600" height="400" frameborder="0"></iframe>
+{% endif %}
+<form action="" method="POST" enctype="multipart/form-data">
+    
+    {% csrf_token %}
+    <a href="{% url 'app_post:user_video' %}"  class="btn btn-info btn-sm">Cancel</a>
+    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+   
+</form>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title_block %}
+{% endblock %}
+{% block css_block %}
+{% endblock %}
+{% block body_block %}
+
+<div >
+{% if posts %}
+{% for post in posts %}
+  <div style="width: 600px; margin: 0 auto;border: 1px solid #888888;" >
+    {% if post.video %}
+    <video width="600" height="400" controls>
+      <source src="/media/{{post.video}}" type="video/mp4">
+      <source src="/media/{{post.video}}" type="video/ogg">
+      <source src="/media/{{post.video}}" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+    {% else %}
+    <iframe src="{{post.website}}" width="600" height="400" frameborder="0"></iframe>
+    {% endif %}
+    
+      <div  style="background-color: rgb(185, 185, 185);padding: 10px;">
+        <div style="display: inline-block;" >
+          {% if post.author.user_profile.profile_pic %}
+          <a  href="{% url 'app_login:profile_other' username=post.author %}"> 
+              <img src="/media/{{post.author.user_profile.profile_pic}}" alt="" width="50px" height="50px" class="rounded-circle">
+              </a>
+      {% else %}
+        <a  href="{% url 'app_login:profile_other' username=post.author %}"> 
+            <img src="/media/profile_pics/avatar-male.jpg" alt="" width="50px" height="50px" class="rounded-circle">
+        </a>
+      {% endif %}
+        </div>
+        <div style="display: inline-block; padding-left: 10px;">
+          <a href="{% url 'app_post:details' pk=post.pk %}"> <h5>{{post.caption}}</h5> </a>
+          <p style="font-size: 12px;font-weight: 700; color: rgb(105, 100, 100);">{{post.catagory}} </p>
+          <a href="{% url 'app_post:edit_post' pk=post.pk %}" class="btn btn-info btn-sm">Edit</a> <a href="{% url 'app_post:delete_video' pk=post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+      </div>
+      
+    </div>
+  
+    
+  <br>
+  
+{% endfor %}
+{% else %}
+<h4 style="text-align: center;">No video is posted. <a href="{% url 'app_post:upload' %}">Upload video</a> </h4>
+{% endif %}
+</div>
+
+
+
+{% endblock %}

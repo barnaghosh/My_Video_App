@@ -1,0 +1,49 @@
+<!-- {% extends 'navbar.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title_block %}
+{% endblock %}
+{% block css_block %}
+{% endblock %}
+{% block body_block %}
+{% if search %}
+
+<div >
+  {% for post in result %}
+    <div style="width: 600px; margin: 0 auto;border: 1px solid #888888;" >
+      <video width="600" height="400" controls>
+        <source src="/media/{{post.video}}" type="video/mp4">
+        <source src="/media/{{post.video}}" type="video/ogg">
+        <source src="/media/{{post.video}}" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+      
+        <div  style="background-color: rgb(185, 185, 185);padding: 10px;">
+          <div style="display: inline-block;" >
+            {% if post.author.user_profile.profile_pic %}
+            <a  href="#"> 
+                <img src="/media/{{post.author.user_profile.profile_pic}}" alt="" width="50px" height="50px" class="rounded-circle">
+                </a>
+        {% else %}
+          <a  href="#"> 
+              <img src="/media/profile_pics/avatar-male.jpg" alt="" width="50px" height="50px" class="rounded-circle">
+          </a>
+        {% endif %}
+          </div>
+          <div style="display: inline-block; padding-left: 10px;">
+            <a href="{% url 'app_post:details' pk=post.pk %}"> <h5>{{post.caption}}</h5> </a>
+          </div>
+        </div>
+        
+      </div>
+    
+      
+    <br>
+    
+  {% endfor %}
+  </div>
+
+{% else %}
+<h4>Sorry no result found</h4>
+{% endif %}
+{% endblock %} -->
